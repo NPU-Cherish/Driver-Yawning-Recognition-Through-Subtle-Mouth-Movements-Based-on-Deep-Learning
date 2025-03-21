@@ -389,7 +389,6 @@ layer {
   }
 }
 
-# 新增的卷积层
 layer {
   name: "Conv10"
   type: "Convolution"
