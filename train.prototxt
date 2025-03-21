@@ -584,7 +584,7 @@ layer {
     decay_mult: 0.0
   }
   inner_product_param {
-    num_output: 10  # 10个类别用于分类任务，根据实际任务修改
+    num_output: 3
     weight_filler {
       type: "xavier"
     }
