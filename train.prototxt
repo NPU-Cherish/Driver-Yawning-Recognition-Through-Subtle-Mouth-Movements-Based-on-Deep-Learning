@@ -536,7 +536,6 @@ layer {
   top: "fc1"
 }
 
-# 第二个全连接层
 layer {
   name: "fc2"
   type: "InnerProduct"
@@ -569,7 +568,6 @@ layer {
   top: "fc2"
 }
 
-# 输出层
 layer {
   name: "fc3"
   type: "InnerProduct"
@@ -595,7 +593,6 @@ layer {
   }
 }
 
-# softmax层，用于分类任务
 layer {
   name: "softmax"
   type: "SoftmaxWithLoss"
