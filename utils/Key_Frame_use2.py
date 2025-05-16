@@ -66,6 +66,10 @@ def process(video_dir, save_dir, train_file_list):
                     label = '0'
                 elif dir_name in ['Yawning']:
                     label = '1'
+                elif dir_name in ['Yawning&Talking']:
+                    label = '1'
+                    
+                
                 else:
                     print("Too bad, label invalid.")
                     continue
