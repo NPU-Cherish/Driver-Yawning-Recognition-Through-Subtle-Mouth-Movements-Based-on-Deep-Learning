@@ -290,7 +290,7 @@ layer {
   bottom: "fc2"
   top: "fc3"
   inner_product_param {
-    num_output: 2
+    num_output: 3
     weight_filler { type: "xavier" }
     bias_filler { type: "constant" value: 0.0 }
   }
