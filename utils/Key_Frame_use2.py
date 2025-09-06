@@ -63,13 +63,9 @@ def process(video_dir, save_dir, train_file_list):
                 if dir_name in ['Normal']:
                     label = '0'
                 elif dir_name in ['Talking']:
-                    label = '0'
+                    label = '2'
                 elif dir_name in ['Yawning']:
                     label = '1'
-                elif dir_name in ['Yawning&Talking']:
-                    label = '1'
-                    
-                
                 else:
                     print("Too bad, label invalid.")
                     continue
@@ -113,15 +109,12 @@ def process(video_dir, save_dir, train_file_list):
                         success, frame = cap.read()
                     cap.release()
 
-                    # 求平均值
-                    rmse = np.sum(rmses)/(i-1)
-
-                    diff_sum_mean = np.sum(frame_diffs) / (i - 1)
-
-                    rmses = rmses - rmse
+                    
                     ed = frame_diffs
-                    ed = ed - diff_sum_mean
 
+                    rmse = np.sum(rmses)/(i-1)
+                    diff_sum_mean = np.sum(frame_diffs) / (i - 1)
+                    
                     frame_count = -1
                     cap = cv2.VideoCapture(os.path.join(video_dir_name, video_name))
                     if cap.isOpened():
@@ -176,7 +169,8 @@ def process(video_dir, save_dir, train_file_list):
                                 if ch == 27:
                                     break
                             try:
-                                if (abs(ed[frame_count])) > 1000:
+                                if (ed[frame_count]) > np.sum(frame_diffs) / (i - 1):
+                                    print(total_face)
                                     total_face += 1
                                     img_file_name = video_name.split('.')[0]
                                     img_file_name = img_file_name + '-' + str(total_face) + '_' + str(label) + '.jpg'
@@ -184,7 +178,7 @@ def process(video_dir, save_dir, train_file_list):
                                     f_trainList.write(img_save_path + ' ' + label + '\n')
                                     cv2.imwrite(img_save_path, face_resize)
 
-                                elif (abs(rmses[frame_count])) > 3000 :
+                                elif (rmses[frame_count]) > np.sum(rmses)/(i-1) :
                                     total_face += 1
                                     img_file_name = video_name.split('.')[0]
                                     img_file_name = img_file_name + '-' + str(total_face) + '_' + str(label) + '.jpg'
